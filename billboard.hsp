@@ -1,0 +1,35 @@
+/**
+ * Billboard
+ *
+ * (c) 2021 Kento Shirasawa
+ */
+
+// include
+#include "hsp3utf.as" // UTF-8
+
+*Main
+  screen 0, 600, 400, SCREEN_FIXEDSIZE
+  font MSGOTHIC, 50
+  
+  // default position
+  x = 600 : y = 200
+
+  // animation
+  repeat
+    redraw 0
+    color $00, $00, $00 :boxf // background
+    color $00, $FF, $00 :pos x,y :mes "" + gettime(4) + "時" + gettime(5) + "分"
+    pos 0, 0 :mes "x: " + x + ", y: " + y // coordinates
+    redraw 1
+    await 1000 / 60
+    x = x - 1
+
+    // control
+    stick key, 15
+    if (key == 2) : if (0 < y) : y = y - 1
+    if (key == 8) : if (y < 350) :  y = y + 1
+
+    if (x == -250) : x = 600
+  loop
+stop
+

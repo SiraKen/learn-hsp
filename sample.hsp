@@ -1,0 +1,33 @@
+/**
+ * HSP Sample Program
+ *
+ * (c) 2021 Kento Shirasawa
+ */
+
+// include
+#include "hsp3utf.as" // UTF-8
+
+// screen
+screen 0, 500, 500
+color 15, 125, 35: boxf
+
+blockCount = 0
+block = ""
+
+// display 10x10 field
+color 255, 255, 255
+font "Meiryo", 24
+
+repeat 100
+  blockCount ++
+  if (blockCount \ 10 == 0) {
+    block += "■\n"
+  } else {
+    block += "■"
+  }
+  await 1000 / 60
+  mes block
+  if blockCount < 100: cls
+loop
+
+

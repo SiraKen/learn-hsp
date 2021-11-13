@@ -1,0 +1,58 @@
+/**
+ * Sample Game
+ *
+ * (c) 2021 Kento Shirasawa
+ */
+
+// include
+#include "hsp3utf.as" // UTF-8
+
+*Main
+  // sizes
+  windowX = 800
+  windowY = 600
+  fontSize = 30
+
+  // window props
+  screen 0, windowX, windowY, SCREEN_FIXEDSIZE
+  title "Game"
+  font MSGOTHIC, fontSize
+
+  // default position
+  x = 400 : y = 550
+
+  repeat
+
+    // control
+    stick key, 15
+      // vertical
+      if (key == 2) : if (0 < y) : y = y - 1 // up
+      if (key == 8) : if (y < windowY - fontSize) :  y = y + 1 // down
+      // horizontal
+      if (key == 1) : if (0 < x) : x = x - 1 // left
+      if (key == 4) : if (x < windowX - fontSize) :  x = x + 1 // right
+      // cross
+      if (key == 3) : if (0 < x) : if (0 < y) : x = x - 1 : y = y - 1 // LT
+      if (key == 6) : if (x < windowX - fontSize) : if (0 < y) : x = x + 1 : y = y - 1 // RT
+      if (key == 9) : if (0 < x) : if (y < windowY - fontSize) : x = x - 1 : y = y + 1 // LB
+      if (key == 12) : if (x < windowX - fontSize) : if (y < windowY - fontSize) : x = x + 1 : y = y + 1 // RB
+
+    redraw 0
+
+    // draw background
+    color $00, $00, $33 :boxf 
+
+    // display coordinates
+    color $FF, $FF, $FF :pos 0, 0 :mes "x: " + x + ", y: " + y
+
+    // display rocket
+    color $FF, $FF, $FF :pos x, y :mes "山"
+
+    // shoot: space
+    if (key == 16) : color $FF, $FF, $FF :pos x, y - 50 :mes "○"
+
+    redraw 1
+
+    await 1000 / 450
+
+  loop
